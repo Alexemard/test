@@ -10,6 +10,7 @@ function App() {
     cheese: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [readyToOrder, setReadyToOrder] = useState(false);
 
   const handleExtrasChange = (e) => {
     const { name, checked } = e.target;
@@ -27,6 +28,11 @@ function App() {
   return (
     <div className="App">
       <h1>Order a Sandwich</h1>
+      <img
+        className="sandwich-img"
+        src="https://images.unsplash.com/photo-1606755962778-209909d818c6?auto=format&fit=crop&w=800&q=80"
+        alt="Delicious sandwich"
+      />
       <form onSubmit={handleSubmit}>
         <label>
           Bread:
@@ -74,7 +80,19 @@ function App() {
             Cheese
           </label>
         </fieldset>
-        <button type="submit">Place Order</button>
+        <div className="toggle">
+          <label className="switch">
+            <input
+              type="checkbox"
+              aria-label="Ready to Order"
+              checked={readyToOrder}
+              onChange={() => setReadyToOrder(!readyToOrder)}
+            />
+            <span className="slider"></span>
+          </label>
+          <span>Ready to Order</span>
+        </div>
+        <button type="submit" disabled={!readyToOrder}>Place Order</button>
       </form>
       {submitted && (
         <p data-testid="summary">{summary}</p>
